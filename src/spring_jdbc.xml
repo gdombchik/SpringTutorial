@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+    
+    <context:component-scan base-package="javabrains.spring.core.data.access.jdbc"></context:component-scan>
+    
+    <!-- Creates a new connection everytime connection is called -->
+	<!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="jdbc:mysql://localhost:3306/javabrains"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="password"></property>
+	</bean>-->
+	
+	<!-- Implements connection pooling -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<!--<property name="driverClassName" value=""></property>-->
+		<property name="url" value="jdbc:mysql://localhost:3306/javabrains"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="password"></property>
+		<property name="initialSize" value="2"></property>
+		<property name="maxActive" value="5"></property>
+	</bean>
+	
+	<bean id="jdbcDaoImplThatExtendsDaoSupport" class="javabrains.spring.core.data.access.jdbc.JdbcDaoImplThatExtendsDaoSupport">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- http://stackoverflow.com/questions/21241210/compatability-of-spring-4-0-0-with-hibernate-4-30 -->
+	<!--<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">-->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan" value="javabrains.spring.core.data.access.jdbc"></property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>			
+			</props>
+		</property>
+	
+	</bean>
+	
+		
+</beans>

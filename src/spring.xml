@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+    
+    <bean id="zeroPoint" class="javabrains.spring.core.understanding.dependency_injection.Point">
+    	<property name="x" value="0"/>
+    	<property name="y" value="0"/>
+    </bean>
+    
+    <bean id="point2" class="javabrains.spring.core.understanding.dependency_injection.Point">
+    	<property name="x" value="-20"/>
+    	<property name="y" value="0"/>
+    </bean>
+    
+    <bean id="point3" class="javabrains.spring.core.understanding.dependency_injection.Point">
+    	<property name="x" value="20"/>
+    	<property name="y" value="0"/>
+    </bean>
+    
+    
+    <bean id="triangle" class="javabrains.spring.core.understanding.dependency_injection.Triangle">
+    	<!--<property name="type" value="Equilateral"/>-->
+    	<!--<constructor-arg type="String" value="Equilateral"/>-->
+    	<!--<constructor-arg type="int" value="20"/>-->
+    	<!--<constructor-arg index="0" value="Equilateral"/>
+    	<constructor-arg index="1" value="20"/>-->
+    	
+    	
+    	<!--<property name="pointA" ref="zeroPoint"/>
+    	<property name="pointB">
+    		<bean class="javabrains.spring.core.understanding.dependency_injection.Point">
+		    	<property name="x" value="-20"/>
+		    	<property name="y" value="0"/>
+		    </bean>
+    	</property>
+    	<property name="pointC" ref="point3"/>-->
+    	
+    	<!--<property name="points">
+    		<list>
+    			<ref bean="zeroPoint" />
+    			<ref bean="point2" />
+    			<ref bean="point3" />
+    		</list>
+    	</property>-->
+    	<!--<property name="pointsSet">
+    		<list>
+    			<ref bean="zeroPoint" />
+    			<ref bean="point2" />
+    			<ref bean="point3" />
+    		</list>
+    	</property>-->
+    	<property name="pointsMap">
+    		<map>
+    			<entry key="1" value-ref="zeroPoint" />
+    			<entry key="2" value-ref="point2" />
+    			<entry key="3" value-ref="point3" />
+    		</map>
+    	</property>
+    </bean>
+    
+    <alias name="triangle" alias="triangle-alias"/>
+    <alias name="triangle" alias="triangle-alias2"/>
+    
+</beans>
